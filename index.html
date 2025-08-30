@@ -1,0 +1,823 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Corpo Docente - IFSP Matão</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/react/18.2.0/umd/react.production.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.2.0/umd/react-dom.production.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/7.23.2/babel.min.js"></script>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700&display=swap" rel="stylesheet" />
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primary: '#005d00',
+          },
+          fontFamily: {
+            sans: ['Open Sans', 'sans-serif'],
+          },
+        },
+      },
+    };
+  </script>
+</head>
+<body style="background-color: #d2e6d0;" class="font-sans">
+  <div class="container mx-auto p-4">
+    <div id="root"></div>
+  </div>
+
+  <script type="text/babel">
+    const facultyData = [
+      {
+        name: "Adriana Bruno Norcino",
+        email: "adriana.norcino@ifsp.edu.br",
+        specialStatus: "Em licença maternidade",
+        scheduleImage: "",
+        officeHours: [],
+        page: "Adriana_Norcino.html"
+      },
+      {
+        name: "Alan Eric Fonseca",
+        email: "alan.fonseca@ifsp.edu.br",
+        scheduleImage: "./horarios_individuais_png/Alan_Fonseca.png",
+        officeHours: [{ day: "Quinta-feira", time: "13:00–14:00" }],
+        page: "Alan_Fonseca.html"
+      },
+      {
+        name: "Aldineia Pereira da Silva",
+        email: "aldineia.pereira@ifsp.edu.br",
+        scheduleImage: "./horarios_individuais_png/Aldineia_Silva.png",
+        officeHours: [
+          { day: "Quinta-feira", time: "15:00-17:00" },
+          { day: "Sexta-feira", time: "16:00-18:00" },
+          ],
+        page: "Aldineia_Silva.html"
+      },
+      {
+        name: "Alecio Rodrigues de Oliveira",
+        email: "alecio@ifsp.edu.br",
+        scheduleImage: "./horarios_individuais_png/Alecio_Oliveira.png",
+        officeHours: [
+        { day: "Terça-feira", time: "15:00-17:00, 18:30-20:30" },
+          { day: "Quarta-feira", time: "20:00-21:00" },
+        ],
+        page: "MaisUm.html"
+      },
+      {
+        name: "Alexandre Cestari",
+        email: "alexandre.cestari@ifsp.edu.br",
+        scheduleImage: "./horarios_individuais_png/Alexandre_Cestari.png",
+        officeHours: [
+         { day: "Segunda-feira", time: "09:00-12:00" },
+        ],
+        page: "MaisUm.html"
+      },
+      {
+        name: "Aline Lucia Baggio",
+        email: "alinelbaggio@ifsp.edu.br",
+        scheduleImage: "./horarios_individuais_png/Aline_Baggio.png",
+        officeHours: [
+        { day: "Terça-feira", time: "16:50-18:50" },
+        { day: "Quarta-feira", time: "17:50-18:50" },
+        ],
+        page: "MaisUm.html"
+      },
+      {
+        name: "Ana Paula Mazzini Lima",
+        email: "ana.mazzini@ifsp.edu.br",
+        scheduleImage: "./horarios_individuais_png/Ana_Lima.png",
+        officeHours: [
+        { day: "Quinta-feira", time: "15:00-16:00" },
+        ],
+        page: "MaisUm.html"
+      },
+      {
+        name: "Andréia Aparecida Cecílio",
+        email: "andreiacecilio@ifsp.edu.br",
+        scheduleImage: "./horarios_individuais_png/Andreia_Cecilio.png",
+        officeHours: [
+        { day: "Quarta-feira", time: "13:00-14:00, 16:00-18:00" },
+        ],
+        page: "MaisUm.html"
+      },
+      {
+        name: "Andressa Maio da Costa",
+        email: "andressa.maio@ifsp.edu.br",
+        specialStatus: "Em licença maternidade",
+        scheduleImage: "",
+        officeHours: [],
+        page: "Adriana_Norcino.html"
+      },
+      {
+        name: "Antônio Marcos Martins",
+        email: "antonio.martins@ifsp.edu.br",
+        scheduleImage: "./horarios_individuais_png/Antonio_Martins.png",
+        officeHours: [
+        { day: "Quarta-feira", time: "13:00-14:00, 16:00-17:00" },
+        { day: "Sexta-feira", time: "14:00-17:00" },
+        ],
+        page: "MaisUm.html"
+      },
+      {
+        name: "Aristeu Gomes Tininis",
+        email: "aristeu.tininis@ifsp.edu.br",
+        specialStatus: "Em licença saúde",
+        scheduleImage: "",
+        officeHours: [],
+        page: "Adriana_Norcino.html"
+      },
+      {
+        name: "Bruna Drielen Ferreira Gonçalves",
+        email: "drielen.bruna@ifsp.edu.br",
+        scheduleImage: "./horarios_individuais_png/Bruna_Goncalves.png",
+        officeHours: [
+        { day: "Terça-feira", time: "14:00-18:00" },
+        { day: "Quarta-feira", time: "16:00-18:00" },
+        ],
+        page: "MaisUm.html"
+      },
+      {
+        name: "Caio Fernando Gromboni",
+        email: "caio.gromboni@ifsp.edu.br",
+        scheduleImage: "./horarios_individuais_png/Caio_Gromboni.png",
+        officeHours: [
+        { day: "Segunda-feira", time: "17:50-18:50" },
+        { day: "Terça-feira", time: "13:00-17:00" },
+        { day: "Quarta-feira", time: "17:50-18:50" },
+        ],
+        page: "MaisUm.html"
+      },
+      {
+        name: "Carla Raílla Santos de Oliveira",
+        email: "oliveira.carla@ifsp.edu.br",
+        scheduleImage: "./horarios_individuais_png/Carla_Oliveira.png",
+        officeHours: [
+        { day: "Terça-feira", time: "13:20-15:10, 17:00-18:50" },
+        { day: "Quinta-feira", time: "19:10-21:30" },
+        ],
+        page: "MaisUm.html"
+      },
+      {
+        name: "Carla Yuri Kisen",
+        email: "carla.kisen@ifsp.edu.br",
+        scheduleImage: "./horarios_individuais_png/Carla_Kisen.png",
+        officeHours: [
+        { day: "Quinta-feira", time: "14:00-15:00" },
+        ],
+        page: "MaisUm.html"
+      },
+      {
+        name: "Carlos Eduardo Crestani",
+        email: "cecrestani@ifsp.edu.br",
+        scheduleImage: "./horarios_individuais_png/Carlos_Crestani.png",
+        officeHours: [
+        { day: "Quarta-feira", time: "13:00-17:00" },
+        { day: "Quinta-feira", time: "13:30-17:00" },
+        ],
+        page: "MaisUm.html"
+      },
+      {
+        name: "Carolina Lourencetti",
+        email: "carollourencetti@ifsp.edu.br",
+        scheduleImage: "./horarios_individuais_png/Carolina_Lourencetti.png",
+        officeHours: [
+        { day: "Quarta-feira", time: "17:50-18:50" },
+        ],
+        page: "MaisUm.html"
+      },
+      {
+        name: "Caroline Peters Pigatto De Nardi",
+        email: "carolinepigatto@ifsp.edu.br",
+        scheduleImage: "./horarios_individuais_png/Caroline_Nardi.png",
+        officeHours: [
+        { day: "Segunda-feira", time: "13:20-14:20" },
+        ],
+        page: "MaisUm.html"
+      },
+      {
+        name: "Cássia Maria de Oliveira",
+        email: "cassiaoliveira@ifsp.edu.br",
+        scheduleImage: "./horarios_individuais_png/Cassia_Oliveira.png",
+        officeHours: [
+        { day: "Quarta-feira", time: "13:00-14:00" },
+        ],
+        page: "MaisUm.html"
+      },
+      {
+        name: "Christiane Aparecida Tragante",
+        email: "christragante@ifsp.edu.br",
+        scheduleImage: "./horarios_individuais_png/Christiane_Tragante.png",
+        officeHours: [
+        { day: "Quarta-feira", time: "18:20-18:50" },
+        { day: "Sexta-feira", time: "13:20-14:20" },
+        ],
+        page: "MaisUm.html"
+      },
+      {
+        name: "Christiann Davis Tosta",
+        email: "cdtosta@ifsp.edu.br",
+        scheduleImage: "./horarios_individuais_png/Christiann_Tosta.png",
+        officeHours: [
+        { day: "Terça-feira", time: "15:10-16:10" },
+        ],
+        page: "MaisUm.html"
+      },
+      {
+        name: "Cláudia Regina Cançado Sgorlon Tininis",
+        email: "sgorlonif@ifsp.edu.br",
+        scheduleImage: "./horarios_individuais_png/Claudia_Tininis.png",
+        officeHours: [
+        { day: "Terça-feira", time: "17:00-18:00" },
+        { day: "Quarta-feira", time: "17:00-18:00" },
+        { day: "Quinta-feira", time: "17:00-18:00" },
+        ],
+        page: "MaisUm.html"
+      },
+      {
+        name: "Daniara Cristina Fernandes",
+        email: "daniaraf@ifsp.edu.br",
+        scheduleImage: "./horarios_individuais_png/Daniara_Fernandes.png",
+        officeHours: [
+        { day: "Quinta-feira", time: "09:30-10:30, 13:20-15:20" },
+        ],
+        page: "MaisUm.html"
+      },
+      {
+        name: "Daniela de Almeida Nascimento",
+        email: "daniela.nascimento@ifsp.edu.br",
+        scheduleImage: "./horarios_individuais_png/Daniela_Nascimento.png",
+        officeHours: [
+        { day: "Segunda-feira", time: "15:10-16:00" },
+        { day: "Terça-feira", time: "13:20-14:10" },
+        { day: "Quarta-feira", time: "13:10-14:00" },
+        ],
+        page: "MaisUm.html"
+      },
+      {
+        name: "Deysiele Oliveira Alves",
+        email: "deysiele.alves@ifsp.edu.br",
+        scheduleImage: "./horarios_individuais_png/Deysiele_Alves.png",
+        officeHours: [
+        { day: "Terça-feira", time: "15:00-18:00" },
+        { day: "Quinta-feira", time: "10:40-12:20" },
+        ],
+        page: "MaisUm.html"
+      },
+      {
+        name: "Djenane Sichieri Wagner Cunha",
+        email: "djenane.wagner@ifsp.edu.br",
+        scheduleImage: "./horarios_individuais_png/Djenane_Cunha.png",
+        officeHours: [
+         { day: "Quinta-feira", time: "16:30-18:30" },
+        ],
+        page: "MaisUm.html"
+      },
+      {
+        name: "Eduardo Carneiro Figueira",
+        email: "du.figueira@ifsp.edu.br",
+        scheduleImage: "./horarios_individuais_png/Eduardo_Figueira.png",
+        officeHours: [
+        { day: "Segunda-feira", time: "13:00-14:00" },
+        { day: "Quinta-feira", time: "13:00-14:00" },
+        ],
+        page: "MaisUm.html"
+      },
+      {
+        name: "Eliziane Carla Scariot",
+        email: "eliziane.scariot@ifsp.edu.br",
+        scheduleImage: "./horarios_individuais_png/Eliziane_Scariot.png",
+        officeHours: [
+        { day: "Quinta-feira", time: "13:30-14:30" },
+        { day: "Sexta-feira", time: "13:00-16:00" },
+        ],
+        page: "MaisUm.html"
+      },
+      {
+        name: "Fábio Henrique Lepri Boschesi",
+        email: "fabio.henrique@ifsp.edu.br",
+        scheduleImage: "./horarios_individuais_png/Fabio_Boschesi.png",
+        officeHours: [
+        { day: "Terça-feira", time: "15:00-16:00 (3º Téc. Química), 16:00-17:00 (2º Téc. Química)" },
+        { day: "Quinta-feira", time: "15:00-16:00 (1º Téc. Química)" },
+        ],
+        page: "MaisUm.html"
+      },
+      {
+        name: "Felipe Batistella Filho",
+        email: "batistella@ifsp.edu.br",
+        scheduleImage: "./horarios_individuais_png/Felipe_Filho.png",
+        officeHours: [
+        { day: "Terça-feira", time: "14:00-17:00" },
+        ],
+        page: "MaisUm.html"
+      },
+      {
+        name: "Fernando Braga Franco Talarico",
+        email: "talarico.fernando@ifsp.edu.br",
+        scheduleImage: "./horarios_individuais_png/Fernando_Talarico.png",
+        officeHours: [
+        { day: "Quarta-feira", time: "16:00-18:00" },
+        { day: "Quinta-feira", time: "15:00-18:00" },
+        ],
+        page: "MaisUm.html"
+      },
+      {
+        name: "Fernando Brandão de Oliveira",
+        email: "fernandobrandao@ifsp.edu.br",
+        scheduleImage: "./horarios_individuais_png/Fernando_Oliveira.png",
+        officeHours: [
+        { day: "Quarta-feira", time: "17:00-18:00" },
+        ],
+        page: "MaisUm.html"
+      },
+      {
+        name: "Fernando César Gazola",
+        email: "fcgazola@ifsp.edu.br",
+        scheduleImage: "./horarios_individuais_png/Fernando_Gazola.png",
+        officeHours: [
+        { day: "Terça-feira", time: "16:50-18:50" },
+        ],
+        page: "MaisUm.html"
+      },
+      {
+        name: "Filipe Camargo Dalmatti Alves Lima",
+        email: "fdlima@ifsp.edu.br",
+        scheduleImage: "./horarios_individuais_png/Filipe_Lima.png",
+        officeHours: [
+        { day: "Segunda-feira", time: "13:20-14:20" },
+        { day: "Terça-feira", time: "15:00-16:00" }
+        ],
+        page: "MaisUm.html"
+      },
+      {
+        name: "Francisco Otavio Cintra Ferrarini",
+        email: "franciscoferrarini@ifsp.edu.br",
+        scheduleImage: "./horarios_individuais_png/Francisco_Ferrarini.png",
+        officeHours: [
+        { day: "Segunda-feira", time: "17:50-18:50 (PQ2Q8 N)" },
+        { day: "Quarta-feira", time: "12:20-13:20 (PQ2Q8 M)" },
+        { day: "Quinta-feira", time: "17:50-18:50 (MTOEXT2)" },
+        ],
+        page: "MaisUm.html"
+      },
+      {
+        name: "Glaucia Santos Vieira",
+        email: "glaucia.sv@ifsp.edu.br",
+        scheduleImage: "./horarios_individuais_png/Glaucia_Vieira.png",
+        officeHours: [
+       { day: "Segunda-feira", time: "14:00-16:00" },
+        ],
+        page: "MaisUm.html"
+      },
+      {
+        name: "Graziele Souza Mozer",
+        email: "graziele.mozer@ifsp.edu.br",
+        scheduleImage: "./horarios_individuais_png/Graziele_Mozer.png",
+        officeHours: [
+        { day: "Terça-feira", time: "13:00-14:00" },
+        { day: "Quarta-feira", time: "13:00-14:00" },
+        ],
+        page: "MaisUm.html"
+      },
+      {
+        name: "Guilherme Andolfatto Libanori",
+        email: "guilherme.libanori@ifsp.edu.br",
+        scheduleImage: "./horarios_individuais_png/Guilherme_Libanori.png",
+        officeHours: [
+        { day: "Sexta-feira", time: "16:00-18:00" },
+        ],
+        page: "MaisUm.html"
+      },
+      {
+        name: "Helio Alexandre Lima Holanda",
+        email: "helio.holanda@ifsp.edu.br",
+        scheduleImage: "./horarios_individuais_png/Helio_Holanda.png",
+        officeHours: [
+        { day: "Quarta-feira", time: "15:50-18:50" },
+        { day: "Quinta-feira", time: "15:50-18:50" },
+        ],
+        page: "MaisUm.html"
+      },
+      {
+        name: "Helio Fernando Gomes Maziviero",
+        email: "heliomaziviero@ifsp.edu.br",
+        scheduleImage: "./horarios_individuais_png/Helio_Maziviero.png",
+        officeHours: [
+        { day: "Terça-feira", time: "17:50-18:50" },
+        ],
+        page: "MaisUm.html"
+      },
+      {
+        name: "Jane Karla de Faria Borges Machado",
+        email: "jkarla@ifsp.edu.br",
+        scheduleImage: "./horarios_individuais_png/Jane_Machado.png",
+        officeHours: [
+        { day: "Terça-feira", time: "17:00-18:00" },
+        { day: "Quarta-feira", time: "17:00-18:00" },
+        { day: "Quinta-feira", time: "17:00-18:00" },
+        { day: "Sexta-feira", time: "17:00-18:00" },
+        ],
+        page: "MaisUm.html"
+      },
+      {
+        name: "João Henrique Saska Romero",
+        email: "joaohsromero@ifsp.edu.br",
+        scheduleImage: "./horarios_individuais_png/Joao_Romero.png",
+        officeHours: [
+        { day: "Terça-feira", time: "16:50-17:50" },
+        { day: "Quarta-feira", time: "13:00-14:00" },
+        ],
+        page: "MaisUm.html"
+      },
+      {
+        name: "João Luís Guilherme Benassi",
+        email: "jbenassi@ifsp.edu.br",
+        scheduleImage: "./horarios_individuais_png/Joao_Benassi.png",
+        officeHours: [
+        { day: "Sexta-feira", time: "16:00-17:00 (1º AA)" },
+        ],
+        page: "MaisUm.html"
+      },
+      {
+        name: "João Pedro Bueno de Oliveira",
+        email: "joao.bueno@ifsp.edu.br",
+        scheduleImage: "./horarios_individuais_png/Joao_Oliveira.png",
+        officeHours: [
+        { day: "Quinta-feira", time: "13:00-15:00" },
+        ],
+        page: "MaisUm.html"
+      },
+      {
+        name: "Joelmir José Lopes",
+        email: "joelmir.lopes@ifsp.edu.br",
+        scheduleImage: "./horarios_individuais_png/Joelmir_Lopes.png",
+        officeHours: [
+        { day: "Segunda-feira", time: "13:20-14:20" },
+        { day: "Terça-feira", time: "17:50-18:50" },
+        ],
+        page: "MaisUm.html"
+      },
+      {
+        name: "Johny Ferreira Barbosa",
+        email: "johny@ifsp.edu.br",
+        scheduleImage: "./horarios_individuais_png/Johny_Barbosa.png",
+        officeHours: [
+        { day: "Segunda-feira", time: "13:20-14:20" },
+        { day: "Quarta-feira", time: "13:00-14:00" },
+        ],
+        page: "MaisUm.html"
+      },
+      {
+        name: "José Luiz Motandon Neto",
+        email: "jose.motandon@ifsp.edu.br",
+        scheduleImage: "./horarios_individuais_png/Jose_Neto.png",
+        officeHours: [
+        { day: "Terça-feira", time: "14:30-15:30" },
+        ],
+        page: "MaisUm.html"
+      },
+      {
+        name: "Juliana Barretto de Toledo",
+        email: "falecomaju@ifsp.edu.br",
+        scheduleImage: "./horarios_individuais_png/Juliana_Toledo.png",
+        officeHours: [
+        { day: "Quarta-feira", time: "17:50-18:50" },
+        ],
+        page: "MaisUm.html"
+      },
+      {
+        name: "Juliana Infante",
+        email: "jinfante@ifsp.edu.br",
+        scheduleImage: "./horarios_individuais_png/Juliana_Infante.png",
+        officeHours: [
+        { day: "Segunda-feira", time: "13:20-14:20 (TVE1), 14:20-15:20 (TVE2)" },
+        { day: "Terça-feira", time: "15:20-16:20 (TOA)" },
+        { day: "Sexta-feira", time: "13:20-14:20 (Projeto Integrador)" },
+        ],
+        page: "MaisUm.html"
+      },
+      {
+        name: "Karina Luiza de Freitas Assunção",
+        email: "karina.freitas@ifsp.edu.br",
+        scheduleImage: "./horarios_individuais_png/Karina_Assuncao.png",
+        officeHours: [
+        { day: "Segunda-feira", time: "16:00-18:00" },
+        ],
+        page: "MaisUm.html"
+      },
+      {
+        name: "Kelly Tafari Catelam",
+        email: "kellycatelam@ifsp.edu.br",
+        scheduleImage: "./horarios_individuais_png/Kelly_Catelam.png",
+        officeHours: [
+        { day: "Quinta-feira", time: "17:10-18:10" },
+        ],
+        page: "MaisUm.html"
+      },
+      {
+        name: "Laurindo Daniel Silva da Rocha",
+        email: "laurindo@ifsp.edu.br",
+        scheduleImage: "./horarios_individuais_png/Laurindo_Rocha.png",
+        officeHours: [
+        { day: "Terça-feira", time: "13:00-16:00" },
+        { day: "Sexta-feira", time: "13:00-14:00" },
+        ],
+        page: "MaisUm.html"
+      },
+      {
+        name: "Leandro Vieira",
+        email: "leandro.vieira@ifsp.edu.br",
+        scheduleImage: "./horarios_individuais_png/Leandro_Vieira.png",
+        officeHours: [
+        { day: "Terça-feira", time: "15:00-18:00" },
+        { day: "Sexta-feira", time: "15:00-17:00" },
+        ],
+        page: "MaisUm.html"
+      },
+      {
+        name: "Liliana Figueiredo A. de Oliveira Ramos",
+        email: "liliana@ifsp.edu.br",
+        scheduleImage: "./horarios_individuais_png/Liliana_Ramos.png",
+        officeHours: [
+        { day: "Segunda-feira", time: "17:50-18:50" },
+        ],
+        page: "MaisUm.html"
+      },
+      {
+        name: "Luciane Penteado Chaquime",
+        email: "lupenteado@ifsp.edu.br",
+        scheduleImage: "./horarios_individuais_png/Luciane_Chaquime.png",
+        officeHours: [
+        { day: "Terça-feira", time: "17:50-18:50" },
+        ],
+        page: "MaisUm.html"
+      },
+      {
+        name: "Luiz Antônio Castelo e Silva",
+        email: "castelo@ifsp.edu.br",
+        scheduleImage: "./horarios_individuais_png/Luiz_Silva.png",
+        officeHours: [
+        { day: "Segunda-feira", time: "10:00-12:00 (Engenharia de Alimentos)" },
+        { day: "Terça-feira", time: "10:00-12:00 (Engenharia de Energias Renováveis)" },
+        { day: "Quinta-feira", time: "10:00-12:00 (TST)" },
+        ],
+        page: "MaisUm.html"
+      },
+      {
+        name: "Márcia Luzia Rizzatto",
+        email: "marciarizzatto@ifsp.edu.br",
+        scheduleImage: "./horarios_individuais_png/Marcia_Rizzatto.png",
+        officeHours: [
+        { day: "Terça-feira", time: "17:00-18:00" },
+        ],
+        page: "MaisUm.html"
+      },
+      {
+        name: "Marialba Conceição Gibertoni Chehadi",
+        email: "marialbaleia@gmail.com",
+        scheduleImage: "./horarios_individuais_png/Marialba_Chehadi.png",
+        officeHours: [
+        { day: "Terça-feira", time: "13:20-14:30" },
+        { day: "Quarta-feira", time: "13:00-14:00, 16:00-17:50" },
+        ],
+        page: "MaisUm.html"
+      },
+      {
+        name: "Mauro Prato",
+        email: "mauroprato@ifsp.edu.br",
+        scheduleImage: "./horarios_individuais_png/Mauro_Prato.png",
+        officeHours: [
+        { day: "Segunda-feira", time: "16:30-18:30" },
+        { day: "Terça-feira", time: "18:00-20:00" },
+        ],
+        page: "MaisUm.html"
+      },
+      {
+        name: "Natália Santini Victuri",
+        email: "natalia.victuri@ifsp.edu.br",
+        scheduleImage: "./horarios_individuais_png/Natalia_Victuri.png",
+        officeHours: [
+        { day: "Segunda-feira", time: "15:00-19:00" },
+        ],
+        page: "MaisUm.html"
+      },
+      {
+        name: "Patricia Olsen de Souza",
+        email: "patricia@ifsp.edu.br",
+        scheduleImage: "./horarios_individuais_png/Patricia_Souza.png",
+        officeHours: [
+        { day: "Terça-Feira", time: "13:20-14:20" },
+        ],
+        page: "MaisUm.html"
+      },
+      {
+        name: "Rodrigo Dantas de Lucas",
+        email: "rodrigodantas@ifsp.edu.br",
+        scheduleImage: "./horarios_individuais_png/Rodrigo_Lucas.png",
+        officeHours: [
+        { day: "Segunda-feira", time: "14:00-15:00" },
+        ],
+        page: "MaisUm.html"
+      },
+      {
+        name: "Sandro Megale Pizzo",
+        email: "smpizzo@ifsp.edu.br",
+        scheduleImage: "./horarios_individuais_png/Sandro_Pizzo.png",
+        officeHours: [
+        { day: "Terça-feira", time: "16:00-18:00" },
+        { day: "Quinta-feira", time: "16:00-18:00" },
+        { day: "Sexta-feira", time: "16:00-18:00" },
+        ],
+        page: "MaisUm.html"
+      },
+      {
+        name: "Sandro Ricardo de Sousa",
+        email: "srsousa@ifsp.edu.br",
+        scheduleImage: "./horarios_individuais_png/Sandro_Sousa.png",
+        officeHours: [
+        { day: "Segunda-feira", time: "07:50-08:50, 14:00-16:00" },
+        { day: "Terça-feira", time: "08:40-11:40" },
+        ],
+        page: "MaisUm.html"
+      },
+      {
+        name: "Saulo Ricardo Canola",
+        email: "canolasr@ifsp.edu.br",
+        scheduleImage: "./horarios_individuais_png/Saulo_Canola.png",
+        officeHours: [
+        { day: "Quinta-feira", time: "17:50-18:50" },
+        ],
+        page: "MaisUm.html"
+      },
+      {
+        name: "Sérgio Luís Mendes",
+        email: "sergio.mendes@ifsp.edu.br",
+        scheduleImage: "./horarios_individuais_png/Sergio_Mendes.png",
+        officeHours: [
+
+        ],
+        page: "MaisUm.html"
+      },
+      {
+        name: "Vagner Ricardo de Araújo Pereira",
+        email: "vagner.pereira@ifsp.edu.br",
+        scheduleImage: "./horarios_individuais_png/Vagner_Pereira.png",
+        officeHours: [
+        { day: "Quarta-feira", time: "16:00-17:00" },
+        ],
+        page: "MaisUm.html"
+      },
+      {
+        name: "Valquíria Pereira Tenório",
+        email: "valquiriatenorio@ifsp.edu.br",
+        scheduleImage: "./horarios_individuais_png/Valquiria_Tenorio.png",
+        officeHours: [
+        { day: "Sexta-feira", time: "14:00-15:00" },
+        ],
+        page: "MaisUm.html"
+      },
+      {
+        name: "Vanessa Cristina Gonçalves Camillo",
+        email: "vanessa@ifsp.edu.br",
+        scheduleImage: "./horarios_individuais_png/Vanessa_Camillo.png",
+        officeHours: [
+        { day: "Terça-feira", time: "13:00-14:00" },
+        ],
+        page: "MaisUm.html"
+      },
+      {
+        name: "Vinício dos Santos",
+        email: "vinicio.santos@ifsp.edu.br",
+        scheduleImage: "./horarios_individuais_png/Vinicio_Santos.png",
+        officeHours: [
+        { day: "Sexta-feira", time: "13:00-14:00" },
+        ],
+        page: "MaisUm.html"
+      },
+      {
+        name: "Vívian de Oliveira Lima",
+        email: "vivianlima@ifsp.edu.br",
+        scheduleImage: "./horarios_individuais_png/Vivian_Lima.png",
+        officeHours: [
+        { day: "Quinta-feira", time: "13:30-14:30 (1º Alimentos)" },
+        { day: "Sexta-feira", time: "13:00-14:00 (2º Química), 14:00-15:00 (2º Alimentos)" },
+        ],
+        page: "MaisUm.html"
+      },
+    ];
+
+    function FacultyCard({ faculty }) {
+      const [isScheduleOpen, setIsScheduleOpen] = React.useState(false);
+      const [isOfficeOpen, setIsOfficeOpen] = React.useState(false);
+
+      React.useEffect(() => {
+        function handleEsc(e) {
+          if (e.key === "Escape") setIsScheduleOpen(false);
+        }
+        document.addEventListener("keydown", handleEsc);
+        return () => document.removeEventListener("keydown", handleEsc);
+      }, []);
+
+      return (
+        <div
+          className="faculty-card bg-white rounded-lg shadow-md p-6 transition duration-300 hover:shadow-lg"
+          data-name={faculty.name}
+        >
+          <h2 className="text-xl font-bold text-gray-800 mb-2">
+            <a href={faculty.page} className="text-primary hover:underline">
+              {faculty.name}
+            </a>
+          </h2>
+          <p className="text-gray-600 mb-4">
+            E-mail: <a href={`mailto:${faculty.email}`} className="text-blue-600 hover:underline">{faculty.email}</a>
+          </p>
+
+          {faculty.specialStatus ? (
+            <div className="bg-primary/10 border-l-4 border-primary p-4 mb-4 rounded-md">
+              <p className="text-primary font-semibold">{faculty.specialStatus}</p>
+            </div>
+          ) : (
+            <>
+              <button
+                onClick={() => setIsScheduleOpen(true)}
+                className="w-full text-left bg-blue-600 text-white py-2 px-4 rounded-md mb-2 hover:bg-blue-700 flex justify-between items-center"
+              >
+                <span>Horário de Aulas</span>
+                <span>▼</span>
+              </button>
+
+              <button
+                onClick={() => setIsOfficeOpen(!isOfficeOpen)}
+                className="w-full text-left bg-green-500 text-white py-2 px-4 rounded-md hover:bg-green-600 flex justify-between items-center"
+              >
+                <span>Horário de Atendimento</span>
+                <span>{isOfficeOpen ? "▲" : "▼"}</span>
+              </button>
+
+              {isOfficeOpen && (
+                <div className="mt-4 text-gray-700">
+                  {faculty.officeHours?.map((slot, index) => (
+                    <p key={index}>{slot.day}, {slot.time}</p>
+                  ))}
+                </div>
+              )}
+
+              {isScheduleOpen && faculty.scheduleImage && (
+                <div
+                  className="fixed inset-0 bg-black bg-opacity-70 flex items-center justify-center z-50"
+                  onClick={() => setIsScheduleOpen(false)}
+                >
+                  <div className="relative" onClick={(e) => e.stopPropagation()}>
+                    <img
+                      src={faculty.scheduleImage}
+                      alt={`Horário de ${faculty.name}`}
+                      className="max-w-5xl w-full rounded-lg shadow-2xl"
+                    />
+                    <button
+                      onClick={() => setIsScheduleOpen(false)}
+                      className="absolute top-2 right-2 bg-white text-black px-3 py-1 rounded-full shadow hover:bg-gray-200"
+                    >
+                      ✕
+                    </button>
+                  </div>
+                </div>
+              )}
+            </>
+          )}
+        </div>
+      );
+    }
+
+    function App() {
+      const [searchTerm, setSearchTerm] = React.useState("");
+
+      const filteredFaculty = facultyData.filter(faculty =>
+        faculty.name.toLowerCase().includes(searchTerm.toLowerCase())
+      );
+
+      return (
+        <div>
+          <h1 className="text-3xl font-bold text-primary text-center mb-6">Corpo Docente – IFSP Matão</h1>
+          <input
+            type="text"
+            placeholder="Buscar professor..."
+            className="w-full mb-6 p-3 border border-gray-300 rounded-md"
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+          />
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            {filteredFaculty.map((faculty, index) => (
+              <FacultyCard key={index} faculty={faculty} />
+            ))}
+          </div>
+        </div>
+      );
+    }
+
+    ReactDOM.render(<App />, document.getElementById("root"));
+  </script>
+</body>
+</html>
