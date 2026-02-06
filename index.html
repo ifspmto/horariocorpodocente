@@ -718,23 +718,26 @@
 
       return (
         <div
-          className="faculty-card bg-white rounded-lg shadow-md p-6 transition duration-300 hover:shadow-lg"
+          className="faculty-card bg-white rounded-lg shadow-md p-6 transition duration-300 hover:shadow-lg flex flex-col min-h-[280px]"
           data-name={faculty.name}
         >
-          <h2 className="text-xl font-bold text-gray-800 mb-2">
-            <a href={faculty.page} className="text-primary hover:underline">
-              {faculty.name}
-            </a>
-          </h2>
-          <p className="text-gray-600 mb-4">
-            E-mail: <a href={`mailto:${faculty.email}`} className="text-blue-600 hover:underline">{faculty.email}</a>
-          </p>
+          <div className="flex-grow">
+            <h2 className="text-xl font-bold text-gray-800 mb-2">
+              <a href={faculty.page} className="text-primary hover:underline">
+                {faculty.name}
+              </a>
+            </h2>
+            <p className="text-gray-600 mb-4">
+              E-mail: <a href={`mailto:${faculty.email}`} className="text-blue-600 hover:underline">{faculty.email}</a>
+            </p>
+          </div>
+
           {faculty.specialStatus ? (
             <div className="bg-primary/10 border-l-4 border-primary p-4 mb-4 rounded-md">
               <p className="text-primary font-semibold">{faculty.specialStatus}</p>
             </div>
           ) : (
-            <>
+            <div className="mt-auto">
               <button
                 onClick={() => setIsScheduleOpen(true)}
                 className="w-full text-left bg-blue-600 text-white py-2 px-4 rounded-md mb-2 hover:bg-blue-700 flex justify-between items-center"
@@ -749,6 +752,7 @@
                 <span>Horário de Atendimento</span>
                 <span>{isOfficeOpen ? "▲" : "▼"}</span>
               </button>
+
               {isOfficeOpen && (
                 <div className="mt-4 text-gray-700">
                   {faculty.officeHours.length > 0 ? (
@@ -760,27 +764,28 @@
                   )}
                 </div>
               )}
-              {isScheduleOpen && faculty.scheduleImage && (
-                <div
-                  className="fixed inset-0 bg-black bg-opacity-70 flex items-center justify-center z-50"
+            </div>
+          )}
+
+          {isScheduleOpen && faculty.scheduleImage && (
+            <div
+              className="fixed inset-0 bg-black bg-opacity-70 flex items-center justify-center z-50"
+              onClick={() => setIsScheduleOpen(false)}
+            >
+              <div className="relative" onClick={(e) => e.stopPropagation()}>
+                <img
+                  src={faculty.scheduleImage}
+                  alt={`Horário de ${faculty.name}`}
+                  className="max-w-5xl w-full rounded-lg shadow-2xl"
+                />
+                <button
                   onClick={() => setIsScheduleOpen(false)}
+                  className="absolute top-2 right-2 bg-white text-black px-3 py-1 rounded-full shadow hover:bg-gray-200"
                 >
-                  <div className="relative" onClick={(e) => e.stopPropagation()}>
-                    <img
-                      src={faculty.scheduleImage}
-                      alt={`Horário de ${faculty.name}`}
-                      className="max-w-5xl w-full rounded-lg shadow-2xl"
-                    />
-                    <button
-                      onClick={() => setIsScheduleOpen(false)}
-                      className="absolute top-2 right-2 bg-white text-black px-3 py-1 rounded-full shadow hover:bg-gray-200"
-                    >
-                      ✕
-                    </button>
-                  </div>
-                </div>
-              )}
-            </>
+                  ✕
+                </button>
+              </div>
+            </div>
           )}
         </div>
       );
