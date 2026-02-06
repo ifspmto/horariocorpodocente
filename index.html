@@ -31,30 +31,28 @@
 
   <script type="text/babel">
     const facultyData = [
-      {
+     <!-- {
         name: "Adriana Bruno Norcino",
         email: "adriana.norcino@ifsp.edu.br",
         specialStatus: "Em licença maternidade",
         scheduleImage: "",
         officeHours: [],
         page: "adriana_norcino.html"
+      }, -->
+     {
+        name: "Adriana Bruno Norcino",
+        email: "adriana.norcino@ifsp.edu.br",
+        scheduleImage: "./horario/Adriana_Norcino.png",
+        officeHours: [{ day: "Quinta-feira", time: "13:00–14:00" }],
+        page: "adriana_norcino.html"
       },
-      {
+       
+       {
         name: "Alan Eric Fonseca",
         email: "alan.fonseca@ifsp.edu.br",
         scheduleImage: "./horario/Alan_Fonseca.png",
         officeHours: [{ day: "Quinta-feira", time: "13:00–14:00" }],
         page: "alan_fonseca.html"
-      },
-      {
-        name: "Aldineia Pereira da Silva",
-        email: "aldineia.pereira@ifsp.edu.br",
-        scheduleImage: "./horario/Aldineia_Silva.png",
-        officeHours: [
-          { day: "Quinta-feira", time: "15:00-17:00" },
-          { day: "Sexta-feira", time: "16:00-18:00" },
-          ],
-        page: "aldineia_silva.html"
       },
       {
         name: "Alecio Rodrigues de Oliveira",
@@ -88,10 +86,9 @@
       {
         name: "Ana Paula Mazzini Lima",
         email: "ana.mazzini@ifsp.edu.br",
-        scheduleImage: "./horario/Ana_Lima.png",
-        officeHours: [
-        { day: "Quinta-feira", time: "15:00-16:00" },
-        ],
+       specialStatus: "Em licença qualificação",
+        scheduleImage: "",
+        officeHours: [],
         page: "ana_lima.html"
       },
       {
@@ -106,7 +103,7 @@
       {
         name: "Andressa Maio da Costa",
         email: "andressa.maio@ifsp.edu.br",
-        specialStatus: "Em licença maternidade",
+        specialStatus: "Em licença saúde",
         scheduleImage: "",
         officeHours: [],
         page: "andressa_costa.html"
@@ -121,16 +118,6 @@
         ],
         page: "antonio_martins.html"
       },
-      /*
-      {
-        name: "Aristeu Gomes Tininis",
-        email: "aristeu.tininis@ifsp.edu.br",
-        specialStatus: "Em licença saúde",
-        scheduleImage: "",
-        officeHours: [],
-        page: "aristeu_tininis.html"
-      },
-      */
       {
         name: "Bruna Drielen Ferreira Gonçalves",
         email: "drielen.bruna@ifsp.edu.br",
@@ -151,6 +138,17 @@
         { day: "Quarta-feira", time: "17:50-18:50" },
         ],
         page: "caio_gromboni.html"
+      },
+      {
+        name: "Camila Lopes Montrezor Carnevali",
+        email: "a_deifinir@ifsp.edu.br",
+        scheduleImage: "./horario/Camila_Carnevali.png",
+        officeHours: [
+        { day: "Segunda-feira", time: "17:50-18:50" },
+        { day: "Terça-feira", time: "13:00-17:00" },
+        { day: "Quarta-feira", time: "17:50-18:50" },
+        ],
+        page: "camila_carnevali.html"
       },
       {
         name: "Carla Raílla Santos de Oliveira",
@@ -246,17 +244,6 @@
         { day: "Quinta-feira", time: "09:30-10:30, 13:20-15:20" },
         ],
         page: "daniara_fernandes.html"
-      },
-      {
-        name: "Daniela de Almeida Nascimento",
-        email: "daniela.nascimento@ifsp.edu.br",
-        scheduleImage: "./horario/Daniela_Nascimento.png",
-        officeHours: [
-        { day: "Segunda-feira", time: "15:10-16:00" },
-        { day: "Terça-feira", time: "13:20-14:10" },
-        { day: "Quarta-feira", time: "13:10-14:00" },
-        ],
-        page: "daniela_nascimento.html"
       },
       {
         name: "Deysiele Oliveira Alves",
@@ -414,6 +401,15 @@
         page: "helio_maziviero.html"
       },
       {
+        name: "Ione Arsenio da Silva",
+        email: "a_definir@ifsp.edu.br",
+        scheduleImage: "./horario/Ione_Silva.png",
+        officeHours: [
+        { day: "Terça-feira", time: "17:50-18:50" },
+        ],
+        page: "ione_silva.html"
+      },
+      {
         name: "Jane Karla de Faria Borges Machado",
         email: "jkarla@ifsp.edu.br",
         scheduleImage: "./horario/Jane_Machado.png",
@@ -472,15 +468,6 @@
         { day: "Quarta-feira", time: "13:00-14:00" },
         ],
         page: "johny_barbosa.html"
-      },
-      {
-        name: "José Luiz Motandon Neto",
-        email: "jose.motandon@ifsp.edu.br",
-        scheduleImage: "./horario/Jose_Neto.png",
-        officeHours: [
-        { day: "Terça-feira", time: "14:30-15:30" },
-        ],
-        page: "jose_neto.html"
       },
       {
         name: "Juliana Barretto de Toledo",
@@ -626,6 +613,15 @@
         page: "rodrigo_lucas.html"
       },
       {
+        name: "Ronaldo Junior Fernandes",
+        email: "a_definir@ifsp.edu.br",
+        scheduleImage: "./horario/Ronaldo_Fernandes.png",
+        officeHours: [
+        { day: "Segunda-feira", time: "14:00-15:00" },
+        ],
+        page: "ronaldo_fernandes.html"
+      },
+      {
         name: "Sandro Megale Pizzo",
         email: "smpizzo@ifsp.edu.br",
         scheduleImage: "./horario/Sandro_Pizzo.png",
@@ -709,6 +705,16 @@
         { day: "Sexta-feira", time: "13:00-14:00 (2º Química), 14:00-15:00 (2º Alimentos)" },
         ],
         page: "vivian_lima.html"
+      },
+      {
+        name: "Wagner Santos Araújo",
+        email: "a_definir@ifsp.edu.br",
+        scheduleImage: "./horario/Wagner_Araujo.png",
+        officeHours: [
+        { day: "Quinta-feira", time: "13:30-14:30 (1º Alimentos)" },
+        { day: "Sexta-feira", time: "13:00-14:00 (2º Química), 14:00-15:00 (2º Alimentos)" },
+        ],
+        page: "Wagner_araujo.html"
       },
     ];
 
